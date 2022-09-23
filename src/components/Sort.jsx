@@ -1,11 +1,11 @@
 import React from "react";
 
-function Sort() {
+function Sort({value, onClickSort}) {
 
   const sortTypes = [
-    "популярности",
-    "цене",
-    "алфавиту"
+    {name: "популярности", sort: "rating"},
+    {name: "цене", sort: "price"},
+    {name: "алфавиту", sort: "title"}
   ]
 
   const [isVisibleModal, setIsVisibleModal] = React.useState(false)
@@ -16,8 +16,8 @@ function Sort() {
 
   const [activeIndex, setActiveIndex] = React.useState(0)
 
-  const selectSortItem = (index) => {
-    setActiveIndex(index)
+  const selectSortItem = (sortType) => {
+    onClickSort(sortType)
     setIsVisibleModal(false)
   }
 
@@ -30,15 +30,15 @@ function Sort() {
             fill="#2C2C2C"></path>
         </svg>
         <b className="sort__select">Сортировка по:</b>
-        <span>{sortTypes[activeIndex]}</span>
+        <span>{value.name}</span>
       </div>
       {
         isVisibleModal && (
           <div className="sort__popup">
             <ul>
               {
-                sortTypes.map((value, index) =>
-                  <li key={value + index} onClick={() => selectSortItem(index)} className={index === activeIndex ? "active" : ""}>{value}</li>
+                sortTypes.map((sortType) =>
+                  <li key={sortType} onClick={() => selectSortItem(sortType)} className={value === sortType ? "active" : ""}>{sortType.name}</li>
                 )
               }
             </ul>
