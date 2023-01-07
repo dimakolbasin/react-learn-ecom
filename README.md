@@ -4,11 +4,11 @@
 
 In the project directory, you can run:
 
-##Node.js version ^14.0.0
+##Node.js version ^14.15.0
 
-### `npm install`
-### `npm server`
-### `npm start`
+### `yarn`
+### `yarn server`
+### `yarn start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
