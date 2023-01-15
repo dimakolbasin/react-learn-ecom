@@ -1,0 +1,39 @@
+@import 'src/scss/variables';
+
+.wrapper {
+  :global(.button) {
+
+  }
+  @media (max-width: 1260px) {
+
+      ul {
+        overflow: scroll;
+        width: 60vw;
+      }
+  }
+  margin-top: 30px;
+  ul {
+    display: flex;
+
+    li {
+      background-color: #f9f9f9;
+      padding: 13px 30px;
+      border-radius: 30px;
+      margin-right: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.1s ease-in-out;
+      //@include noselect();
+
+      &.active {
+        background-color: #181818;
+        color: white;
+      }
+
+      &:hover {
+        background-color: #181818;
+        color: white;
+      }
+    }
+  }
+}

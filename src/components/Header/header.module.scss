@@ -1,10 +1,34 @@
-@import '../variables';
+@import 'src/scss/variables';
 
-.header {
+.wrapper {
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
-
+  &_link {
+    gap: 7px;
+    display: flex;
+    background-color: $orange;
+    border-radius: 30px;
+    padding: 10px 20px;
+    min-width: 100px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
+    border: 1px solid transparent;
+    &__delimiter {
+      width: 1px;
+      height: 25px;
+      background-color: rgba(255, 255, 255, 0.25);
+      margin-left: 7px;
+      margin-right: 5px;
+    }
+    & > svg {
+      & > path {
+        stroke: black;
+      }
+    }
+  }
   .container {
+    padding: 0 65px;
     display: flex;
     align-items: center;
     justify-content: space-between;

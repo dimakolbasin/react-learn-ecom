@@ -1,11 +1,12 @@
 import React from "react";
 
-function Categories({value, onClickCategory}) {
+import styles from "./categories.module.scss"
+
+import cn from "classnames"
+
+const Categories = ({value, onClickCategory}) => {
   const [activeIndex, setActiveIndex] = React.useState(0)
 
-  // const onClickCategory = (index) => {
-  //   setActiveIndex(index)
-  // }
 
   const categories = [
     "Все",
@@ -17,11 +18,17 @@ function Categories({value, onClickCategory}) {
   ]
 
   return (
-    <div className="categories">
+    <div className={styles.wrapper}>
       <ul>
         {
           categories.map((category, index) =>
-            <li key={category + index} onClick={() => onClickCategory(index)} className={value === index ? "active" : ""}>{category}</li>
+            <li
+              key={category + index}
+              onClick={() => onClickCategory(index)}
+              className={cn( {[styles.active]: value === index})}
+            >
+              {category}
+            </li>
           )
         }
       </ul>
