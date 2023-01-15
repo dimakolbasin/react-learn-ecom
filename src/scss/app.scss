@@ -3,6 +3,18 @@
 
 @import 'components/all';
 
+ul > li.active {
+  background-color: #282828!important;
+  color: #fff;
+}
+
+svg {
+  margin-right: 8px;
+  &.rotate180 {
+    transform: rotate(180deg);
+  }
+}
+
 body {
   background-color: $background;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
