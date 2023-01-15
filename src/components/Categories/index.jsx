@@ -1,11 +1,9 @@
 import React from "react";
 
-function Categories({value, onClickCategory}) {
-  const [activeIndex, setActiveIndex] = React.useState(0)
+import styles from "./Categories.module.scss"
 
-  // const onClickCategory = (index) => {
-  //   setActiveIndex(index)
-  // }
+const Categories = ({value, onClickCategory}) => {
+  const [activeIndex, setActiveIndex] = React.useState(0)
 
   const categories = [
     "Все",
@@ -17,7 +15,7 @@ function Categories({value, onClickCategory}) {
   ]
 
   return (
-    <div className="categories">
+    <div className={styles.root}>
       <ul>
         {
           categories.map((category, index) =>

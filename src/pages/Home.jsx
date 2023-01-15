@@ -1,7 +1,7 @@
 import React from "react";
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
-import Index from "../components/PizzaBlock/PizzaSkeleton";
+import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import PizzaBlock from "../components/PizzaBlock";
 
 export const Home = () => {
@@ -38,7 +38,7 @@ export const Home = () => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {
-          isLoadingData || !items.length ? [...new Array(8)].map((_, index) => <Index key={index} />) : items.map((value, index) => (
+          isLoadingData || !items.length ? [...new Array(8)].map((_, index) => <PizzaSkeleton key={index} />) : items.map((value, index) => (
             <PizzaBlock key={value + index}
                         name={value.title}
                         price={value.price}
