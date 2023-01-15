@@ -1,7 +1,13 @@
 @import 'src/scss/variables';
 
-.root {
+.wrapper {
   position: relative;
+  svg {
+    margin-right: 8px;
+    &.rotate180 {
+      transform: rotate(180deg);
+    }
+  }
   &__label {
     display: flex;
     align-items: center;

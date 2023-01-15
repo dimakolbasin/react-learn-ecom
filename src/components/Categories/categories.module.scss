@@ -1,8 +1,10 @@
 @import 'src/scss/variables';
 
-.root {
+.wrapper {
+  :global(.button) {
+
+  }
   @media (max-width: 1260px) {
-      margin-top: 30px;
 
       ul {
         overflow: scroll;
@@ -23,8 +25,14 @@
       transition: background-color 0.1s ease-in-out;
       //@include noselect();
 
+      &.active {
+        background-color: #181818;
+        color: white;
+      }
+
       &:hover {
-        background-color: darken(#f9f9f9, 2%);
+        background-color: #181818;
+        color: white;
       }
     }
   }

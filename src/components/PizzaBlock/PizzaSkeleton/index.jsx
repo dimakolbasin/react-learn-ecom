@@ -1,10 +1,11 @@
 import React from "react"
 import ContentLoader from "react-content-loader"
 
+import styles from "../pizza-block.module.scss"
+
 const PizzaSkeleton = (props) => (
-  <div className="pizza-block-wrapper">
+  <div className={styles.pizza__wrapper}>
     <ContentLoader
-      className="pizza-block"
       speed={2}
       width={280}
       height={500}
