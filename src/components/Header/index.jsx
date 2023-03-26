@@ -1,8 +1,10 @@
 import LogoPizza from "../../img/pizza-logo.svg"
 import { Link } from "react-router-dom";
 import styles from "./header.module.scss"
+import {lazy} from 'react'
+const Search = lazy(() => import(/* webpackChunkName: "search" */ '../Search'))
 
-const Header = () => {
+const Header = ({ searchValue, setSearchValue }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -18,6 +20,10 @@ const Header = () => {
             </div>
           </div>
         </Link>
+        <Search
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
         <div>
           <Link
             to="/cart"

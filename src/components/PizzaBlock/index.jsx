@@ -20,11 +20,13 @@ function PizzaBlock(props) {
   return (
     <div className={styles.pizza__wrapper}>
       <div>
-        <img
-          className={styles.pizza__image}
-          src={props.imageUrl}
-          alt="Pizza"
-        />
+        <div className={styles['pizza__container-img']}>
+          <img
+            className={styles.pizza__image}
+            src={props.imageUrl}
+            alt="Pizza"
+          />
+        </div>
         <h4 className={styles.pizza__title}>
           {props.name}
         </h4>
