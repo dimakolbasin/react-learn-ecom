@@ -24,7 +24,6 @@ export const Home = ({searchValue}) => {
     fetch(`http://localhost:4200/data?${selectedCategory > 0 ? `category=${selectedCategory}` : ''}&_limit=4 &_page=${currentPage} &_sort=${selectedSort.sort}&_order=asc&q=${searchValue}`)
       .then(res => {
         setContentType(+res.headers.get('X-Total-Count'))
-        console.error('qwerty', contentType);
         return res.json();
       })
       .then(json => {
