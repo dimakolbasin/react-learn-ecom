@@ -6,6 +6,7 @@
   &_link {
     gap: 7px;
     display: flex;
+    align-items: center;
     background-color: $orange;
     border-radius: 30px;
     padding: 10px 20px;
@@ -14,6 +15,9 @@
     cursor: pointer;
     transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
     border: 1px solid transparent;
+    span {
+      color: white;
+    }
     &__delimiter {
       width: 1px;
       height: 25px;
@@ -23,7 +27,7 @@
     }
     & > svg {
       & > path {
-        stroke: black;
+        stroke: white;
       }
     }
   }

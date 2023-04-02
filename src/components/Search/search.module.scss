@@ -1,0 +1,40 @@
+@import 'src/scss/variables';
+
+.root {
+  position: relative;
+  .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 5px;
+    cursor: pointer;
+    &:hover {
+      transition: opacity .5s;
+      opacity: 0.65;
+    }
+  }
+  .icon-close {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 35px;
+    font-size: 30px;
+    cursor: pointer;
+    &:hover {
+      transition: opacity .5s;
+      opacity: 0.65;
+    }
+  }
+
+  .input {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px 55px 10px 10px;
+    width: 100%;
+    max-width: 450px;
+    font-size: 16px;
+    border-radius: 5px;
+    &:focus {
+      border: 1px solid rgba(0, 0, 0, 0.3);
+    }
+  }
+}

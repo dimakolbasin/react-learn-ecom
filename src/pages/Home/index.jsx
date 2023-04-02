@@ -3,6 +3,8 @@ import Categories from "../../components/Categories";
 import Sort from "../../components/Sort";
 import PizzaSkeleton from "../../components/PizzaBlock/PizzaSkeleton";
 import PizzaBlock from "../../components/PizzaBlock";
+import Pagination from "../../components/Pagination";
+import { SearchContext } from "../../App";
 
 export const Home = () => {
   const [items, setItems] = React.useState([]);
@@ -15,23 +17,33 @@ export const Home = () => {
   const [selectedCategory, setSelectedCategory] = React.useState(0)
   const [selectedSort, setSelectedSort] = React.useState(defaultStateSort)
   const [isLoadingData, setIsLoadingData] = React.useState(false)
-
+  const [currentPage, setCurrentPage] = React.useState(0)
+  const [contentType, setContentType] = React.useState(0)
+  const {searchValue} = React.useContext(SearchContext)
 
   React.useEffect(() => {
     setIsLoadingData(true)
-    fetch(`http://localhost:4200/data?${selectedCategory > 0 ? `category=${selectedCategory}` : ''}&_sort=${selectedSort.sort}&_order=asc`)
+    fetch(`http://localhost:4200/data?${selectedCategory > 0 ? `category=${selectedCategory}` : ''}&_limit=4 &_page=${currentPage} &_sort=${selectedSort.sort}&_order=asc&q=${searchValue}`)
       .then(res => {
+        setContentType(+res.headers.get('X-Total-Count'))
         return res.json();
       })
       .then(json => {
         setItems(json)
         setIsLoadingData(false)
       })
-  }, [selectedCategory, selectedSort])
+  }, [selectedCategory, selectedSort, searchValue, currentPage])
 
-  const onClickCategory = (index) => {
-
-  }
+  const pizzas = items.map((value, index) => (
+    <PizzaBlock key={value + index}
+                name={value.title}
+                price={value.price}
+                imageUrl={value.imageUrl}
+                sizes={value.sizes}
+                types={value.types}
+    />
+  ))
+  const pizzasSkeleton = [...new Array(8)].map((_, index) => <PizzaSkeleton key={index} />)
 
   return (
     <div className="">
@@ -47,17 +59,15 @@ export const Home = () => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {
-          isLoadingData || !items.length ? [...new Array(8)].map((_, index) => <PizzaSkeleton key={index} />) : items.map((value, index) => (
-            <PizzaBlock key={value + index}
-                        name={value.title}
-                        price={value.price}
-                        imageUrl={value.imageUrl}
-                        sizes={value.sizes}
-                        types={value.types}
-            />
-          ))
+          isLoadingData || !items.length ? pizzasSkeleton : pizzas
         }
       </div>
+      <Pagination
+        onChangePage={number => setCurrentPage(number)}
+        contentType={contentType}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   )
 }
