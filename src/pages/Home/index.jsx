@@ -4,8 +4,9 @@ import Sort from "../../components/Sort";
 import PizzaSkeleton from "../../components/PizzaBlock/PizzaSkeleton";
 import PizzaBlock from "../../components/PizzaBlock";
 import Pagination from "../../components/Pagination";
+import { SearchContext } from "../../App";
 
-export const Home = ({searchValue}) => {
+export const Home = () => {
   const [items, setItems] = React.useState([]);
 
   const defaultStateSort =
@@ -18,6 +19,7 @@ export const Home = ({searchValue}) => {
   const [isLoadingData, setIsLoadingData] = React.useState(false)
   const [currentPage, setCurrentPage] = React.useState(0)
   const [contentType, setContentType] = React.useState(0)
+  const {searchValue} = React.useContext(SearchContext)
 
   React.useEffect(() => {
     setIsLoadingData(true)
@@ -63,6 +65,8 @@ export const Home = ({searchValue}) => {
       <Pagination
         onChangePage={number => setCurrentPage(number)}
         contentType={contentType}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </div>
   )

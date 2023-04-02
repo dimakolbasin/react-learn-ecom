@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
 import styles from "./search.module.scss"
 
-const Search = ({ searchValue, setSearchValue }) => {
+import { useContext } from "react";
+import { SearchContext } from "../../App";
+
+const Search = () => {
+
+  const {searchValue, setSearchValue} = useContext(SearchContext)
   return (
     <div className={styles.root}>
       <svg

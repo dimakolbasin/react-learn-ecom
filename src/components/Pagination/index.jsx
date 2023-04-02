@@ -2,11 +2,11 @@ import styles from "./pagination.module.scss"
 import ReactPaginate from "react-paginate";
 import React from "react";
 
-const Pagination = ({ onChangePage, contentType }) => {
+const Pagination = ({ onChangePage, contentType, currentPage, setCurrentPage }) => {
 
   React.useEffect(() => {
     if (contentType === 10) return
-    // todo
+    setCurrentPage(0)
     onChangePage(1)
   }, [contentType])
 
@@ -15,6 +15,7 @@ const Pagination = ({ onChangePage, contentType }) => {
       className={styles.root}
       breakLabel="..."
       nextLabel=">"
+      forcePage={currentPage - 1}
       onPageChange={event => onChangePage(event.selected + 1)}
       pageRangeDisplayed={4}
       pageCount={Math.ceil(contentType / 4)}
