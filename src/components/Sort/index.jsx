@@ -1,15 +1,10 @@
 import {useState, useEffect, useRef} from "react";
-
 import styles from "./sort.module.scss"
-
 import { useSelector, useDispatch } from "react-redux";
-
-import { setSortType } from "../../redux/slices/filterSlice";
-
+import { setSortType } from "theme/redux/slices/filterSlice";
 import cn from "classnames"
 
 const Sort = () => {
-
   const dispatch = useDispatch()
   const sort = useSelector(state => state.filter.sort)
 
@@ -49,8 +44,9 @@ const Sort = () => {
       ref={sortRef}
       className={styles.wrapper}
     >
-      <div className={styles.wrapper__label}
-           onClick={showHideModal}
+      <div
+        className={styles.wrapper__label}
+        onClick={showHideModal}
       >
         <svg
           width="10"

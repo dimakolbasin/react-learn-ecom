@@ -1,11 +1,11 @@
 import {useState, useContext, useEffect} from "react";
-import Categories from "../../components/Categories";
-import Sort from "../../components/Sort";
-import PizzaSkeleton from "../../components/PizzaBlock/PizzaSkeleton";
-import PizzaBlock from "../../components/PizzaBlock";
-import Pagination from "../../components/Pagination";
-import { setCategoryId } from "../../redux/slices/filterSlice";
-import { SearchContext } from "../../App";
+import Categories from "theme/components/Categories";
+import Sort from "theme/components/Sort";
+import PizzaSkeleton from "theme/components/PizzaBlock/PizzaSkeleton";
+import PizzaBlock from "theme/components/PizzaBlock";
+import Pagination from "theme/components/Pagination";
+import { setCategoryId } from "theme/redux/slices/filterSlice";
+import { SearchContext } from "theme/App";
 import { useSelector, useDispatch } from "react-redux";
 
 export const Home = () => {
@@ -42,12 +42,13 @@ export const Home = () => {
   }, [selectedCategory, selectedSort, searchValue, currentPage])
 
   const pizzas = items.map((value, index) => (
-    <PizzaBlock key={value + index}
-                name={value.title}
-                price={value.price}
-                imageUrl={value.imageUrl}
-                sizes={value.sizes}
-                types={value.types}
+    <PizzaBlock
+      key={value + index}
+      name={value.title}
+      price={value.price}
+      imageUrl={value.imageUrl}
+      sizes={value.sizes}
+      types={value.types}
     />
   ))
   const pizzasSkeleton = [...new Array(8)].map((_, index) => <PizzaSkeleton key={index} />)
@@ -55,16 +56,15 @@ export const Home = () => {
   return (
     <div className="">
       <div className="content__top">
-        <Categories value={selectedCategory}
-                    onClickCategory={setSelectedCategory}
+        <Categories
+          value={selectedCategory}
+          onClickCategory={setSelectedCategory}
         />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {
-          isLoadingData || !items.length ? pizzasSkeleton : pizzas
-        }
+        { isLoadingData || !items.length ? pizzasSkeleton : pizzas }
       </div>
       <Pagination
         onChangePage={number => setCurrentPage(number)}

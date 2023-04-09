@@ -1,7 +1,7 @@
 import styles from "./search.module.scss"
 
 import { useContext } from "react";
-import { SearchContext } from "../../App";
+import { SearchContext } from "theme/App";
 
 const Search = () => {
 
