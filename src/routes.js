@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy } from 'react'
 
 const Home = lazy(() => import(/* webpackChunkName: "home" */ /* webpackPrefetch: true */ './pages/Home'))
 const NotFound = lazy(() => import(/* webpackChunkName: "not-found" */ /* webpackPrefetch: true */ './pages/NotFound'))
@@ -7,16 +7,16 @@ const Cart = lazy(() => import(/* webpackChunkName: "cart" */ /* webpackPrefetch
 const routes = [
   {
     path: '/',
-    component: Home
+    component: Home,
   },
   {
     path: '/cart',
-    component: Cart
+    component: Cart,
   },
   {
     path: '*',
-    component: NotFound
+    component: NotFound,
   },
-];
+]
 
-export default routes;
+export default routes

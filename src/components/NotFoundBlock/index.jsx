@@ -1,10 +1,10 @@
-import styles from "./NotFoundBlock.module.scss"
+import styles from './NotFoundBlock.module.scss'
 
-const NotFoundBlock = () => {
+function NotFoundBlock() {
   return (
     <h1 className={styles.root}>
       <span>:(</span>
-      <br/>
+      <br />
       Not Found!
     </h1>
   )

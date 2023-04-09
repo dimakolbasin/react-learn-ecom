@@ -5,8 +5,8 @@ export const filterSlice = createSlice({
   initialState: {
     categoryId: 0,
     sort: {
-      name: "популярности", sort: "rating"
-    }
+      name: 'популярности', sort: 'rating',
+    },
   },
   reducers: {
     setCategoryId: (state, action) => {
@@ -14,8 +14,8 @@ export const filterSlice = createSlice({
     },
     setSortType: (state, action) => {
       state.sort = action.payload
-    }
-  }
+    },
+  },
 })
 
 export const { setCategoryId, setSortType } = filterSlice.actions

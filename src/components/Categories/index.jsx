@@ -1,31 +1,29 @@
-import styles from "./categories.module.scss"
-import cn from "classnames"
+import cn from 'classnames'
+import styles from './categories.module.scss'
 
-const Categories = ({value, onClickCategory}) => {
-
-
+function Categories({ value, onClickCategory }) {
   const categories = [
-    "Все",
-    "Мясные",
-    "Вегетарианская",
-    "Гриль",
-    "Острые",
-    "Закрытые",
+    'Все',
+    'Мясные',
+    'Вегетарианская',
+    'Гриль',
+    'Острые',
+    'Закрытые',
   ]
 
   return (
     <div className={styles.wrapper}>
       <ul>
         {
-          categories.map((category, index) =>
+          categories.map((category, index) => (
             <li
               key={category + index}
               onClick={() => onClickCategory(index)}
-              className={cn( {[styles.active]: value === index})}
+              className={cn({ [styles.active]: value === index })}
             >
               {category}
             </li>
-          )
+          ))
         }
       </ul>
     </div>

@@ -1,10 +1,11 @@
-import styles from "./pagination.module.scss"
-import { lazy } from "react";
+import { lazy, useEffect } from 'react'
+import styles from './pagination.module.scss'
+
 const ReactPaginate = lazy(() => import(/* webpackChunkName: "react-paginate" */ 'react-paginate'))
-import {useEffect} from "react";
 
-const Pagination = ({ onChangePage, contentType, currentPage, setCurrentPage }) => {
-
+function Pagination({
+  onChangePage, contentType, currentPage, setCurrentPage,
+}) {
   useEffect(() => {
     if (contentType === 10) return
     setCurrentPage(0)
@@ -14,13 +15,13 @@ const Pagination = ({ onChangePage, contentType, currentPage, setCurrentPage }) 
   return (
     <ReactPaginate
       className={styles.root}
-      breakLabel="..."
-      nextLabel=">"
+      breakLabel='...'
+      nextLabel='>'
       forcePage={currentPage - 1}
-      onPageChange={event => onChangePage(event.selected + 1)}
+      onPageChange={(event) => onChangePage(event.selected + 1)}
       pageRangeDisplayed={4}
       pageCount={Math.ceil(contentType / 4)}
-      previousLabel="<"
+      previousLabel='<'
       renderOnZeroPageCount={null}
     />
   )
