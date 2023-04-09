@@ -1,12 +1,12 @@
-import {useState, useContext, useEffect} from "react";
-import Categories from "theme/components/Categories";
-import Sort from "theme/components/Sort";
-import PizzaSkeleton from "theme/components/PizzaBlock/PizzaSkeleton";
-import PizzaBlock from "theme/components/PizzaBlock";
-import Pagination from "theme/components/Pagination";
-import { setCategoryId } from "theme/redux/slices/filterSlice";
-import { SearchContext } from "theme/App";
-import { useSelector, useDispatch } from "react-redux";
+import { useState, useContext, useEffect, lazy } from "react"
+const Categories = lazy(() => import(/* webpackChunkName: "categories" */ 'theme/components/Categories'))
+const Sort = lazy(() => import(/* webpackChunkName: "sort" */ 'theme/components/Sort'))
+const PizzaSkeleton = lazy(() => import(/* webpackChunkName: "pizza-skeleton" */ 'theme/components/PizzaBlock/PizzaSkeleton'))
+const PizzaBlock = lazy(() => import(/* webpackChunkName: "pizza-block" */ 'theme/components/PizzaBlock'))
+const Pagination = lazy(() => import(/* webpackChunkName: "pagination" */ 'theme/components/Pagination'))
+import { setCategoryId } from "theme/redux/slices/filterSlice"
+import { SearchContext } from "theme/App"
+import { useSelector, useDispatch } from "react-redux"
 
 export const Home = () => {
   const [items, setItems] = useState([]);

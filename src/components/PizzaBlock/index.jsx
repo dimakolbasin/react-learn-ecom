@@ -1,7 +1,5 @@
 import {useState} from "react";
-
 import styles from "./pizza-block.module.scss"
-
 import cn from "classnames"
 
 function PizzaBlock(props) {

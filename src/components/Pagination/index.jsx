@@ -1,5 +1,6 @@
 import styles from "./pagination.module.scss"
-import ReactPaginate from "react-paginate";
+import { lazy } from "react";
+const ReactPaginate = lazy(() => import(/* webpackChunkName: "react-paginate" */ 'react-paginate'))
 import {useEffect} from "react";
 
 const Pagination = ({ onChangePage, contentType, currentPage, setCurrentPage }) => {

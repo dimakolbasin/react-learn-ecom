@@ -1,6 +1,7 @@
-import ContentLoader from "react-content-loader"
+const ContentLoader = lazy(() => import(/* webpackChunkName: "react-content-loader" */ 'react-content-loader'))
 
 import styles from "../pizza-block.module.scss"
+import { lazy } from "react";
 
 const PizzaSkeleton = (props) => (
   <div className={styles.pizza__wrapper}>
