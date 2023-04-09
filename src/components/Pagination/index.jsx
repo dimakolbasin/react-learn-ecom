@@ -1,10 +1,10 @@
 import styles from "./pagination.module.scss"
 import ReactPaginate from "react-paginate";
-import React from "react";
+import {useEffect} from "react";
 
 const Pagination = ({ onChangePage, contentType, currentPage, setCurrentPage }) => {
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (contentType === 10) return
     setCurrentPage(0)
     onChangePage(1)

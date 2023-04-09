@@ -1,10 +1,17 @@
-import React from "react";
+import {useState, useEffect, useRef} from "react";
 
 import styles from "./sort.module.scss"
 
+import { useSelector, useDispatch } from "react-redux";
+
+import { setSortType } from "../../redux/slices/filterSlice";
+
 import cn from "classnames"
 
-const Sort = ({value, onClickSort}) => {
+const Sort = () => {
+
+  const dispatch = useDispatch()
+  const sort = useSelector(state => state.filter.sort)
 
   const sortTypes = [
     {name: "популярности", sort: "rating"},
@@ -12,21 +19,36 @@ const Sort = ({value, onClickSort}) => {
     {name: "алфавиту", sort: "title"}
   ]
 
-  const [isVisibleModal, setIsVisibleModal] = React.useState(false)
+  const [isVisibleModal, setIsVisibleModal] = useState(false)
 
   const showHideModal = () => {
     setIsVisibleModal(!isVisibleModal)
   }
 
-  const [activeIndex, setActiveIndex] = React.useState(0)
-
   const selectSortItem = (sortType) => {
-    onClickSort(sortType)
+    dispatch(setSortType(sortType))
     setIsVisibleModal(false)
   }
 
+  const hideModal = (event) => {
+    if (!event.composedPath().includes(sortRef.current)) setIsVisibleModal(false)
+  }
+
+  useEffect(() => {
+    document.body.addEventListener('click', hideModal)
+
+    return () => {
+      document.body.removeEventListener('click', hideModal)
+    }
+  }, [])
+
+  const sortRef = useRef()
+
   return (
-    <div className={styles.wrapper}>
+    <div
+      ref={sortRef}
+      className={styles.wrapper}
+    >
       <div className={styles.wrapper__label}
            onClick={showHideModal}
       >
@@ -43,7 +65,7 @@ const Sort = ({value, onClickSort}) => {
           />
         </svg>
         <b className={styles.wrapper__select}>Сортировка по:</b>
-        <span>{value.name}</span>
+        <span>{sort.name}</span>
       </div>
       {
         isVisibleModal && (
@@ -54,7 +76,7 @@ const Sort = ({value, onClickSort}) => {
                   <li
                     key={sortType.name + index}
                     onClick={() => selectSortItem(sortType)}
-                    className={cn( {[styles.active]: value.name === sortType.name})}
+                    className={cn( {[styles.active]: sort.name === sortType.name})}
                   >
                     {sortType.name}
                   </li>

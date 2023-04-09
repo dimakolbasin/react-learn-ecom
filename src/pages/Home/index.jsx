@@ -1,27 +1,34 @@
-import React from "react";
+import {useState, useContext, useEffect} from "react";
 import Categories from "../../components/Categories";
 import Sort from "../../components/Sort";
 import PizzaSkeleton from "../../components/PizzaBlock/PizzaSkeleton";
 import PizzaBlock from "../../components/PizzaBlock";
 import Pagination from "../../components/Pagination";
+import { setCategoryId } from "../../redux/slices/filterSlice";
 import { SearchContext } from "../../App";
+import { useSelector, useDispatch } from "react-redux";
 
 export const Home = () => {
-  const [items, setItems] = React.useState([]);
+  const [items, setItems] = useState([]);
 
   const defaultStateSort =
     {
       name: "популярности",
       sort: "rating"
     }
-  const [selectedCategory, setSelectedCategory] = React.useState(0)
-  const [selectedSort, setSelectedSort] = React.useState(defaultStateSort)
-  const [isLoadingData, setIsLoadingData] = React.useState(false)
-  const [currentPage, setCurrentPage] = React.useState(0)
-  const [contentType, setContentType] = React.useState(0)
-  const {searchValue} = React.useContext(SearchContext)
 
-  React.useEffect(() => {
+  const selectedCategory = useSelector(state => state.filter.categoryId)
+  const dispatch = useDispatch()
+  const setSelectedCategory = (id) => {
+    dispatch(setCategoryId(id))
+  }
+  const [isLoadingData, setIsLoadingData] = useState(false)
+  const [currentPage, setCurrentPage] = useState(0)
+  const [contentType, setContentType] = useState(0)
+  const {searchValue} = useContext(SearchContext)
+  const selectedSort = useSelector(state => state.filter.sort)
+
+  useEffect(() => {
     setIsLoadingData(true)
     fetch(`http://localhost:4200/data?${selectedCategory > 0 ? `category=${selectedCategory}` : ''}&_limit=4 &_page=${currentPage} &_sort=${selectedSort.sort}&_order=asc&q=${searchValue}`)
       .then(res => {
@@ -49,12 +56,9 @@ export const Home = () => {
     <div className="">
       <div className="content__top">
         <Categories value={selectedCategory}
-                    onClickCategory={(i) => setSelectedCategory(i)}
+                    onClickCategory={setSelectedCategory}
         />
-        <Sort
-          value={selectedSort}
-          onClickSort={(sortTypeSelected) => setSelectedSort(sortTypeSelected)}
-        />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

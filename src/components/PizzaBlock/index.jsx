@@ -1,19 +1,19 @@
-import React from "react";
+import {useState} from "react";
 
 import styles from "./pizza-block.module.scss"
 
 import cn from "classnames"
 
 function PizzaBlock(props) {
-  const [pizzaCount, setPizzaCount] = React.useState(0)
+  const [pizzaCount, setPizzaCount] = useState(0)
 
   const onClickAddButton = () => {
     setPizzaCount(pizzaCount + 1);
   }
 
-  const [activeSize, setActiveSize] = React.useState(0)
+  const [activeSize, setActiveSize] = useState(0)
 
-  const [activeType, setActiveType] = React.useState(0)
+  const [activeType, setActiveType] = useState(0)
 
   const typeName = ["Тонкое", "Традиционное"]
 

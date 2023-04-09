@@ -1,5 +1,6 @@
 import './scss/app.scss';
 import { Suspense, useState, createContext, lazy } from "react";
+
 import {Routes, Route} from "react-router-dom";
 import routes from './routes';
 const Header = lazy(() => import(/* webpackChunkName: "header" */ /* webpackPrefetch: true */ './components/Header'))
@@ -9,6 +10,7 @@ export const SearchContext = createContext()
 
 const App = () => {
   const [searchValue, setSearchValue] = useState('')
+
   return (
     <div className="wrapper">
       <SearchContext.Provider value={{searchValue, setSearchValue}}>

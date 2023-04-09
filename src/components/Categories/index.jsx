@@ -1,11 +1,7 @@
-import React from "react";
-
 import styles from "./categories.module.scss"
-
 import cn from "classnames"
 
 const Categories = ({value, onClickCategory}) => {
-  const [activeIndex, setActiveIndex] = React.useState(0)
 
 
   const categories = [
