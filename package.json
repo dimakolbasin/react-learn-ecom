@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -21,10 +22,11 @@
   },
   "scripts": {
     "server": "json-server -p 4200 src/server/mocks/pizza.mock.json —routes src/app/server/api.routes.json —no-cors=true",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "DISABLE_ESLINT=true craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject",
+    "lint": "eslint --ext .js,.jsx, src --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +47,14 @@
     ]
   },
   "devDependencies": {
+    "craco-alias": "^3.0.1",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.7.1"
   },
   "prettier": {

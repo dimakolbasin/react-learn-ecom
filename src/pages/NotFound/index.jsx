@@ -1,7 +1,8 @@
-import React from "react";
-import NotFoundBlock from "../../components/NotFoundBlock";
+import { lazy } from 'react'
 
-const NotFound = () => {
+const NotFoundBlock = lazy(() => import(/* webpackChunkName: "not-found-block" */ 'theme/components/NotFoundBlock'))
+
+function NotFound() {
   return <NotFoundBlock />
 }
 
