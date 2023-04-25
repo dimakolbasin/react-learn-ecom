@@ -3,11 +3,12 @@ import styles from './pagination.module.scss'
 
 const ReactPaginate = lazy(() => import(/* webpackChunkName: "react-paginate" */ 'react-paginate'))
 
-function Pagination({
+const Pagination = ({
   onChangePage, contentType, currentPage, setCurrentPage,
-}) {
+}) => {
   useEffect(() => {
     if (contentType === 10) return
+
     setCurrentPage(0)
     onChangePage(1)
   }, [contentType])

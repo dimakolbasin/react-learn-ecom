@@ -1,5 +1,8 @@
 import {
-  useState, useContext, useEffect, lazy,
+  useState,
+  useContext,
+  useEffect,
+  lazy
 } from 'react'
 import { setCategoryId } from 'theme/redux/slices/filterSlice'
 import { SearchContext } from 'theme/App'
@@ -13,11 +16,6 @@ const Pagination = lazy(() => import(/* webpackChunkName: "pagination" */ 'theme
 
 export function Home() {
   const [items, setItems] = useState([])
-
-  const defaultStateSort = {
-    name: 'популярности',
-    sort: 'rating',
-  }
 
   const selectedCategory = useSelector((state) => state.filter.categoryId)
   const dispatch = useDispatch()

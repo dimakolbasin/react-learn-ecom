@@ -1,17 +1,29 @@
 import './scss/app.scss'
 import {
-  Suspense, useState, createContext, lazy,
+  Suspense,
+  useState,
+  createContext,
+  lazy,
+  useEffect
 } from 'react'
+
+import { useLocation } from 'react-router-dom';
 
 import { Routes, Route } from 'react-router-dom'
 import routes from './routes'
 
-const Header = lazy(() => import(/* webpackChunkName: "header" */ './components/Header'))
+const Header = lazy(() => import(/* webpackChunkName: "header" */ 'theme/components/Header'))
 
 export const SearchContext = createContext()
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <div className='wrapper'>
