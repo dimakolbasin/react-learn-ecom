@@ -1,7 +1,5 @@
 const path = require('path')
 
-console.error('qwerty', path.resolve(__dirname, 'src/theme'));
-
 module.exports = {
   webpack: {
     alias: {
@@ -9,6 +7,11 @@ module.exports = {
     },
     devServer: {
       overlay: false,
+    },
+    optimization: {
+      splitChunks: {
+        chunks: 'all'
+      }
     },
     module: {
       rules: [

@@ -5,7 +5,8 @@ export const filterSlice = createSlice({
   initialState: {
     categoryId: 0,
     sort: {
-      name: 'популярности', sort: 'rating',
+      name: 'популярности',
+      sort: 'rating',
     },
   },
   reducers: {
