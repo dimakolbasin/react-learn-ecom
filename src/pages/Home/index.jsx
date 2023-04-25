@@ -4,7 +4,8 @@ import {
   useEffect,
   lazy
 } from 'react'
-import { setCategoryId } from 'theme/redux/slices/filterSlice'
+import { setCategoryId, setCurrentPage } from 'theme/redux/slices/filterSlice'
+import axios from 'axios'
 import { SearchContext } from 'theme/App'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -23,22 +24,32 @@ export function Home() {
     dispatch(setCategoryId(id))
   }
   const [isLoadingData, setIsLoadingData] = useState(false)
-  const [currentPage, setCurrentPage] = useState(0)
   const [contentType, setContentType] = useState(0)
   const { searchValue } = useContext(SearchContext)
   const selectedSort = useSelector((state) => state.filter.sort)
+  const currentPage = useSelector((state) => state.filter.page)
+
+  const fetchData = async () => {
+    setIsLoadingData(true)
+    try {
+      const {
+        data,
+        headers
+      } = await axios.get(`http://localhost:4200/data?${selectedCategory > 0 ? `category=${selectedCategory}` : ''}&_limit=4 &_page=${currentPage} &_sort=${selectedSort.sort}&_order=asc&q=${searchValue}`)
+      setContentType(+headers['x-total-count'])
+      setItems(data)
+      setIsLoadingData(false)
+    } catch (error) {
+      // Обработка ошибок
+    }
+  }
+
+  const onChangePage = number => {
+    dispatch(setCurrentPage(number))
+  }
 
   useEffect(() => {
-    setIsLoadingData(true)
-    fetch(`http://localhost:4200/data?${selectedCategory > 0 ? `category=${selectedCategory}` : ''}&_limit=4 &_page=${currentPage} &_sort=${selectedSort.sort}&_order=asc&q=${searchValue}`)
-      .then((res) => {
-        setContentType(+res.headers.get('X-Total-Count'))
-        return res.json()
-      })
-      .then((json) => {
-        setItems(json)
-        setIsLoadingData(false)
-      })
+    fetchData()
   }, [selectedCategory, selectedSort, searchValue, currentPage])
 
   const pizzas = items.map((value, index) => (
@@ -67,10 +78,10 @@ export function Home() {
         { isLoadingData || !items.length ? pizzasSkeleton : pizzas }
       </div>
       <Pagination
-        onChangePage={(number) => setCurrentPage(number)}
+        onChangePage={onChangePage}
         contentType={contentType}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={onChangePage}
       />
     </div>
   )
