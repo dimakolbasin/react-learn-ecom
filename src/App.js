@@ -7,6 +7,9 @@ import {
   useEffect
 } from 'react'
 
+import { unsetFilters } from 'theme/redux/slices/filterSlice'
+import { useDispatch } from 'react-redux'
+
 import { useLocation } from 'react-router-dom';
 
 import { Routes, Route } from 'react-router-dom'
@@ -18,8 +21,17 @@ export const SearchContext = createContext()
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
-
   const location = useLocation();
+  const dispatch = useDispatch()
+  const { pathname } = location;
+  let previousPath = '';
+
+  useEffect(() => {
+    if (previousPath !== pathname && pathname === '/') {
+      dispatch(unsetFilters({}))
+      previousPath = pathname;
+    }
+  }, [pathname]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
