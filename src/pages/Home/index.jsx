@@ -2,10 +2,18 @@ import {
   useState,
   useContext,
   useEffect,
+  useRef,
   lazy
 } from 'react'
-import { setCategoryId, setCurrentPage } from 'theme/redux/slices/filterSlice'
+import {
+  setCategoryId,
+  setCurrentPage,
+  setFilters
+} from 'theme/redux/slices/filterSlice'
 import axios from 'axios'
+import qs from 'qs'
+import { sortTypes } from 'theme/components/Sort'
+import { useNavigate } from "react-router-dom";
 import { SearchContext } from 'theme/App'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -17,6 +25,10 @@ const Pagination = lazy(() => import(/* webpackChunkName: "pagination" */ 'theme
 
 export function Home() {
   const [items, setItems] = useState([])
+  const navigate = useNavigate()
+
+  const isSearch = useRef(false)
+  const isMounted = useRef(false)
 
   const selectedCategory = useSelector((state) => state.filter.categoryId)
   const dispatch = useDispatch()
@@ -49,7 +61,40 @@ export function Home() {
   }
 
   useEffect(() => {
-    fetchData()
+    if (!window?.location.search) return
+
+    const params = qs.parse(window.location.search.substring(1))
+    const sort = sortTypes.find(item => item.sort === params.sort)
+    dispatch(setFilters({
+      ...params,
+      sort
+    }))
+
+    isSearch.current = true
+  }, [])
+
+  useEffect(() => {
+    if (!isSearch.current) {
+      fetchData()
+      return
+    }
+
+    isSearch.current = false
+
+  }, [selectedCategory, selectedSort, searchValue, currentPage])
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sort: selectedSort.sort,
+        selectedCategory,
+        currentPage
+      })
+      navigate(`?${queryString}`)
+      return
+    }
+
+    isMounted.current = true
   }, [selectedCategory, selectedSort, searchValue, currentPage])
 
   const pizzas = items.map((value, index) => (

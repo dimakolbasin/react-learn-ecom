@@ -4,15 +4,15 @@ import { setSortType } from 'theme/redux/slices/filterSlice'
 import cn from 'classnames'
 import styles from './sort.module.scss'
 
+export const sortTypes = [
+  { name: 'популярности', sort: 'rating' },
+  { name: 'цене', sort: 'price' },
+  { name: 'алфавиту', sort: 'title' },
+]
+
 function Sort() {
   const dispatch = useDispatch()
   const sort = useSelector((state) => state.filter.sort)
-
-  const sortTypes = [
-    { name: 'популярности', sort: 'rating' },
-    { name: 'цене', sort: 'price' },
-    { name: 'алфавиту', sort: 'title' },
-  ]
 
   const [isVisibleModal, setIsVisibleModal] = useState(false)
 
