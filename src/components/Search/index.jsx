@@ -3,7 +3,7 @@ import { SearchContext } from 'theme/App'
 import styles from './search.module.scss'
 import debounce from 'lodash-es/debounce'
 
-function Search() {
+const Search = () => {
   const [value, setValue] = useState()
   const { setSearchValue } = useContext(SearchContext)
   const inputRef = useRef()

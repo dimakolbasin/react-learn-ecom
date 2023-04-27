@@ -100,11 +100,7 @@ export function Home() {
   const pizzas = items.map((value, index) => (
     <PizzaBlock
       key={value + index}
-      name={value.title}
-      price={value.price}
-      imageUrl={value.imageUrl}
-      sizes={value.sizes}
-      types={value.types}
+      {...value}
     />
   ))
   const pizzasSkeleton = [...new Array(8)].map((_, index) => <PizzaSkeleton key={index} />)
