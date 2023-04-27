@@ -10,7 +10,7 @@ export const sortTypes = [
   { name: 'алфавиту', sort: 'title' },
 ]
 
-function Sort() {
+const Sort = () => {
   const dispatch = useDispatch()
   const sort = useSelector((state) => state.filter.sort)
 

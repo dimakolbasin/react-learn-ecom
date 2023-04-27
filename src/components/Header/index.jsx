@@ -3,11 +3,16 @@ import { Link } from 'react-router-dom'
 import { useContext, lazy } from 'react'
 import { SearchContext } from 'theme/App'
 import styles from './header.module.scss'
+import { useSelector } from 'react-redux'
 
 const Search = lazy(() => import(/* webpackChunkName: "search" */ 'theme/components/Search'))
 
-function Header() {
+const Header = () => {
   const { searchValue, setSearchValue } = useContext(SearchContext)
+
+  const {items, totalPrice} = useSelector(state => state.cart)
+  const totalCount = items.reduce((sum, item) => item.count + sum, 0)
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -33,7 +38,7 @@ function Header() {
             to='/cart'
             className={styles.wrapper_link}
           >
-            <span>0 ₽</span>
+            <span>{totalPrice} ₽</span>
             <div className={styles.wrapper_link__delimiter} />
             <svg
               width='18'
@@ -63,7 +68,7 @@ function Header() {
                 strokeLinejoin='round'
               />
             </svg>
-            <span>0</span>
+            <span>{totalCount}</span>
           </Link>
         </div>
       </div>
