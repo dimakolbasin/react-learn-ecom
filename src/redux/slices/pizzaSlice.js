@@ -13,8 +13,6 @@ export const getPizzas = createAsyncThunk(
     try {
       const { data, headers } = await axios.get(`http://localhost:4200/data?${selectedCategory > 0 ? `category=${selectedCategory}` : ''}&_limit=4 &_page=${currentPage} &_sort=${selectedSort.sort}&_order=asc&q=${searchValue}`)
 
-
-      // setContentType(+headers['x-total-count'])
       return { data, headers }
     } catch (err) {
     }
