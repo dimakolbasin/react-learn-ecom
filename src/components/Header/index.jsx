@@ -1,17 +1,19 @@
 import LogoPizza from 'theme/img/pizza-logo.svg'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from "react-router-dom";
 import { useContext, lazy } from 'react'
 import { SearchContext } from 'theme/App'
 import styles from './header.module.scss'
 import { useSelector } from 'react-redux'
 
-const Search = lazy(() => import(/* webpackChunkName: "search" */ 'theme/components/Search'))
+import Search from 'theme/components/Search'
 
 const Header = () => {
   const { searchValue, setSearchValue } = useContext(SearchContext)
 
   const {items, totalPrice} = useSelector(state => state.cart)
   const totalCount = items.reduce((sum, item) => item.count + sum, 0)
+  const location = useLocation()
+  const { pathname } = location
 
   return (
     <div className={styles.wrapper}>
@@ -29,10 +31,12 @@ const Header = () => {
             </div>
           </div>
         </Link>
-        <Search
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-        />
+        { pathname === '/' &&
+          <Search
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+        }
         <div>
           <Link
             to='/cart'

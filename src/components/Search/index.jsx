@@ -1,4 +1,4 @@
-import { useContext, useCallback, useRef, useState } from "react";
+import { useContext, useCallback, useRef, useState, useEffect } from 'react'
 import { SearchContext } from 'theme/App'
 import styles from './search.module.scss'
 import debounce from 'lodash-es/debounce'
@@ -10,8 +10,16 @@ const Search = () => {
 
   const onClickClear = () => {
     setValue('')
+    setSearchValue('')
     inputRef.current.focus()
   }
+
+  useEffect(() => {
+    return () => {
+      setValue('')
+      setSearchValue('')
+    }
+  }, [])
 
   const updateSearchValue = useCallback(debounce((value) => {
     setSearchValue(value)
