@@ -19,12 +19,12 @@ const Header = lazy(() => import(/* webpackChunkName: "header" */ 'theme/compone
 
 export const SearchContext = createContext()
 
-function App() {
+const App = () => {
   const [searchValue, setSearchValue] = useState('')
-  const location = useLocation();
   const dispatch = useDispatch()
-  const { pathname } = location;
-  let previousPath = '';
+  const location = useLocation()
+  const { pathname } = location
+  let previousPath = ''
 
   useEffect(() => {
     if (previousPath !== pathname && pathname === '/') {

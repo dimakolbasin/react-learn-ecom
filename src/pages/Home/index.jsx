@@ -10,12 +10,12 @@ import {
   setCurrentPage,
   setFilters
 } from 'theme/redux/slices/filterSlice'
-import axios from 'axios'
 import qs from 'qs'
 import { sortTypes } from 'theme/components/Sort'
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from 'theme/App'
 import { useSelector, useDispatch } from 'react-redux'
+import { getPizzas } from 'theme/redux/slices/pizzaSlice'
 
 const Categories = lazy(() => import(/* webpackChunkName: "categories" */ 'theme/components/Categories'))
 const Sort = lazy(() => import(/* webpackChunkName: "sort" */ 'theme/components/Sort'))
@@ -24,35 +24,34 @@ const PizzaBlock = lazy(() => import(/* webpackChunkName: "pizza-block" */ 'them
 const Pagination = lazy(() => import(/* webpackChunkName: "pagination" */ 'theme/components/Pagination'))
 
 export function Home() {
-  const [items, setItems] = useState([])
   const navigate = useNavigate()
 
   const isSearch = useRef(false)
   const isMounted = useRef(false)
-
-  const selectedCategory = useSelector((state) => state.filter.categoryId)
   const dispatch = useDispatch()
   const setSelectedCategory = (id) => {
     dispatch(setCategoryId(id))
   }
   const [isLoadingData, setIsLoadingData] = useState(false)
-  const [contentType, setContentType] = useState(0)
   const { searchValue } = useContext(SearchContext)
+  const selectedCategory = useSelector((state) => state.filter.categoryId)
   const selectedSort = useSelector((state) => state.filter.sort)
   const currentPage = useSelector((state) => state.filter.page)
+  const { items, contentType } = useSelector((state) => state.pizza)
 
   const fetchData = async () => {
     setIsLoadingData(true)
     try {
-      const {
-        data,
-        headers
-      } = await axios.get(`http://localhost:4200/data?${selectedCategory > 0 ? `category=${selectedCategory}` : ''}&_limit=4 &_page=${currentPage} &_sort=${selectedSort.sort}&_order=asc&q=${searchValue}`)
-      setContentType(+headers['x-total-count'])
-      setItems(data)
-      setIsLoadingData(false)
+      await dispatch(getPizzas({
+        searchValue,
+        selectedSort,
+        selectedCategory,
+        currentPage
+      }))
     } catch (error) {
-      // Обработка ошибок
+      navigate('/not-found')
+    } finally {
+      setIsLoadingData(false)
     }
   }
 
